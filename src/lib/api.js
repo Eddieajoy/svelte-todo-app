@@ -1,5 +1,4 @@
-// Usa la variable de entorno en producción y localhost para desarrollo
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 export async function getTasks() {
   const res = await fetch(`${API_URL}/tasks`);
