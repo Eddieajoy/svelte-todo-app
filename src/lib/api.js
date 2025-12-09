@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000";
+// Usa la variable de entorno en producción y localhost para desarrollo
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export async function getTasks() {
   const res = await fetch(`${API_URL}/tasks`);
@@ -47,3 +48,4 @@ export async function deleteTask(id) {
   if (!res.ok) throw new Error("Error deleting task");
   return res.json();
 }
+
