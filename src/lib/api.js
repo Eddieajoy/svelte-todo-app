@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "/api";
+const API_URL = "/api";
 
 export async function getTasks() {
   const res = await fetch(`${API_URL}/tasks`);
@@ -11,14 +11,13 @@ export async function createTask(data) {
   formData.append("description", data.description);
   formData.append("deadline", data.deadline || "");
   formData.append("priority", data.priority || "normal");
-  if (data.file) {
-    formData.append("file", data.file);
-  }
+  if (data.file) formData.append("file", data.file);
 
   const res = await fetch(`${API_URL}/tasks`, {
     method: "POST",
     body: formData,
   });
+
   if (!res.ok) throw new Error("Error creating task");
   return res.json();
 }
@@ -29,15 +28,15 @@ export async function updateTask(id, data) {
   if (data.deadline !== undefined) formData.append("deadline", data.deadline);
   if (data.priority !== undefined) formData.append("priority", data.priority);
   if (data.completed !== undefined) formData.append("completed", data.completed ? "1" : "0");
-  if (data.keepOldAttachment !== undefined) formData.append("keepOldAttachment", data.keepOldAttachment ? "true" : "false");
-  if (data.file) {
-    formData.append("file", data.file);
-  }
+  if (data.keepOldAttachment !== undefined)
+    formData.append("keepOldAttachment", data.keepOldAttachment ? "true" : "false");
+  if (data.file) formData.append("file", data.file);
 
   const res = await fetch(`${API_URL}/tasks/${id}`, {
     method: "PUT",
     body: formData,
   });
+
   if (!res.ok) throw new Error("Error updating task");
   return res.json();
 }
